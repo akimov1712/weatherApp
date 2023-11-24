@@ -1,7 +1,7 @@
-package ru.topbun.weather.di.repositories
+package ru.topbun.weather.domain.repositories
 
 import kotlinx.coroutines.flow.Flow
-import ru.topbun.weather.di.entity.WeatherEntity
+import ru.topbun.weather.domain.entity.WeatherEntity
 
 interface WeatherRepository {
 

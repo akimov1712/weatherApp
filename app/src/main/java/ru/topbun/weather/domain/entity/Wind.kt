@@ -1,4 +1,4 @@
-package ru.topbun.weather.di.entity
+package ru.topbun.weather.domain.entity
 
 data class Wind(
     val speed: Int,

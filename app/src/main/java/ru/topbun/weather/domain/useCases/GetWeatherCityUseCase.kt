@@ -1,6 +1,6 @@
-package ru.topbun.weather.di.useCases
+package ru.topbun.weather.domain.useCases
 
-import ru.topbun.weather.di.repositories.WeatherRepository
+import ru.topbun.weather.domain.repositories.WeatherRepository
 import javax.inject.Inject
 
 class GetWeatherCityUseCase @Inject constructor(
