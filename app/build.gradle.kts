@@ -56,10 +56,10 @@ dependencies {
 
 //    Retrofit
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
 //    View
     implementation ("com.squareup.picasso:picasso:2.71828")
-    implementation ("com.makeramen:roundedimageview:2.3.0")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
 //    Navigation
@@ -68,8 +68,7 @@ dependencies {
 
 //    JSON
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-    implementation ("com.google.code.gson:gson:2.9.0")
-    implementation ("org.jsoup:jsoup:1.16.2")
+    implementation ("com.google.code.gson:gson:2.10.1")
 
 //    Room
     implementation("androidx.room:room-runtime:$roomVersion")
