@@ -26,7 +26,7 @@ class WeatherRepositoryImpl @Inject constructor(
         try {
             val weatherResponse = weatherApi.getWeather(city)
             return returnDataFlow(weatherResponse)
-        } catch (e: HttpException){
+        } catch (e: Exception){
             throw ConnectException()
         }
     }

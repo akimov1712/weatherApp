@@ -3,6 +3,7 @@ package ru.topbun.weather.presentation.weather
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,11 +19,6 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
 
     private val viewModel by viewModels<WeatherViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
     override fun setListenersInView() {
     }
 
@@ -32,19 +28,19 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
                 viewModel.state.collect{
                     when(it){
                         is WeatherState.WeatherItem -> {
-                            Log.d("sis", it.weather.toString())
+
                         }
                         is WeatherState.Loading -> {
-                            Log.d("sis", "Загрузка")
+
                         }
                         is WeatherState.ConnectError -> {
-                            Log.d("sis", "Connect error")
+                            Toast.makeText(requireContext(), "Ошибка в подключении\nПроверьте интернет подключение", Toast.LENGTH_SHORT).show()
                         }
                         is WeatherState.ClientError -> {
-                            Log.d("sis", "Client error")
+                            Toast.makeText(requireContext(), "Данные не найдены", Toast.LENGTH_SHORT).show()
                         }
                         is WeatherState.ServerError -> {
-                            Log.d("sis", "Server error")
+                            Toast.makeText(requireContext(), "Сервер не отвечает\nПопробуйте через некоторое время", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
