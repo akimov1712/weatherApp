@@ -1,9 +1,13 @@
 package ru.topbun.weather.data.sources.localSource.database.entity
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
+import ru.topbun.weather.Const.WEATHER_NOW_KEY
 
 @Entity(tableName = "weather_now")
 data class WeatherDbEntity(
+    @PrimaryKey
+    val id: Int = WEATHER_NOW_KEY,
     val name: String,
     val timeUpdate: Long,
     val titleWeather: String,
