@@ -22,7 +22,7 @@ interface WeatherApiService {
         @Query(QUERY_PARAM_LAT) lat:Float,
         @Query(QUERY_PARAM_APIKEY) apikey: String = API_KEY,
         @Query(QUERY_PARAM_LANG) lang: String = "ru",
-    ): WeatherResponse
+    ): Response<WeatherResponse>
 
     companion object{
         private const val QUERY_PARAM_APIKEY = "appid"

@@ -15,6 +15,6 @@ interface WeatherDao {
     fun getWeather(keyId: Int = WEATHER_NOW_KEY): Flow<WeatherDbEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateWeather(weather: WeatherDbEntity)
+    suspend fun insertWeather(weather: WeatherDbEntity)
 
 }
