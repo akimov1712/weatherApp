@@ -1,11 +1,11 @@
-package ru.topbun.weather.data.localSource.database
+package ru.topbun.weather.data.sources.localSource.database
 
 import android.app.Application
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import ru.topbun.weather.data.localSource.database.entity.WeatherDbEntity
+import ru.topbun.weather.data.sources.localSource.database.entity.WeatherDbEntity
 
 @Database(
     entities = [

@@ -1,4 +1,4 @@
-package ru.topbun.weather.data.networkSource.entity
+package ru.topbun.weather.data.sources.networkSource.entity
 
 data class CoordDto(
     val lat: Double,

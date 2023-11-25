@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.topbun.weather.data.localSource.database.AppDatabase
+import ru.topbun.weather.data.sources.localSource.database.AppDatabase
 import javax.inject.Singleton
 
 @Module

@@ -1,6 +1,6 @@
 package ru.topbun.weather.domain.entity
 
 data class Wind(
-    val speed: Int,
+    val speedWind: Double,
     val deg: Int
 )

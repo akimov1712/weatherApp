@@ -1,4 +1,4 @@
-package ru.topbun.weather.data.networkSource.entity
+package ru.topbun.weather.data.sources.networkSource.entity
 
 import com.google.gson.annotations.SerializedName
 
@@ -16,7 +16,7 @@ data class WeatherResponse(
     @SerializedName("coord")
     val coords: CoordDto,
     @SerializedName("dt")
-    val timeStamp: Int,
+    val timeStamp: Long,
     @SerializedName("main")
     val main: MainDto,
     @SerializedName("snow")

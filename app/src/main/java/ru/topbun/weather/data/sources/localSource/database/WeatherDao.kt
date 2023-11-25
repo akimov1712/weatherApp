@@ -1,9 +1,9 @@
-package ru.topbun.weather.data.localSource.database
+package ru.topbun.weather.data.sources.localSource.database
 
 import androidx.room.Dao
 import androidx.room.Update
 import retrofit2.http.GET
-import ru.topbun.weather.data.localSource.database.entity.WeatherDbEntity
+import ru.topbun.weather.data.sources.localSource.database.entity.WeatherDbEntity
 
 @Dao
 interface WeatherDao {

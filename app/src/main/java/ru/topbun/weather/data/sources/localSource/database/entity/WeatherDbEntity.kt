@@ -1,4 +1,4 @@
-package ru.topbun.weather.data.localSource.database.entity
+package ru.topbun.weather.data.sources.localSource.database.entity
 
 import androidx.room.Entity
 
@@ -16,7 +16,7 @@ data class WeatherDbEntity(
     val tempMin: Int,
     val tempMax: Int,
     val rangeVisibility: Int,
-    val speed: Int,
+    val speedWind: Double,
     val deg: Int,
     val cloudPercent: Int,
     val sunrise:Long,
