@@ -1,5 +1,6 @@
 package ru.topbun.weather.data.networkSource
 
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.topbun.weather.Const.API_KEY
@@ -12,7 +13,7 @@ interface WeatherApiService {
     suspend fun getWeatherCity(
         @Query(QUERY_PARAM_CITY) city:String,
         @Query(QUERY_PARAM_APIKEY) apikey: String = API_KEY
-    ): WeatherResponse
+    ): Response<WeatherResponse>
 
     @GET("weather/")
     suspend fun getWeatherCoords(
