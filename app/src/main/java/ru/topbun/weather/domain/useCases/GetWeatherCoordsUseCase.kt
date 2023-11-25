@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetWeatherCoordsUseCase @Inject constructor(
     private val repository: WeatherRepository
 ) {
-    suspend operator fun invoke(city: String) = repository.getWeatherCity(city)
+    suspend operator fun invoke(lon: Float, lat: Float) = repository.getWeatherCoords(lon, lat)
 }

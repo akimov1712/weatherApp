@@ -41,10 +41,15 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
 
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     val roomVersion = "2.6.0"
     val hilt = "2.48.1"
     val navVersion = "2.7.5"
@@ -57,10 +62,6 @@ dependencies {
 //    Retrofit
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
-
-//    View
-    implementation ("com.squareup.picasso:picasso:2.71828")
-    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
 //    Navigation
     implementation ("androidx.navigation:navigation-fragment-ktx:$navVersion")
