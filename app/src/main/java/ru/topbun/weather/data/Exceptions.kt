@@ -8,3 +8,5 @@ open class AppException : RuntimeException()
 class ConnectException: AppException()
 class ClientErrorException: AppException()
 class ServerErrorException: AppException()
+
+class CachedDataException: AppException()

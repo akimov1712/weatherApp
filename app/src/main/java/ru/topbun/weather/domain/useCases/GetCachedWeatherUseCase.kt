@@ -7,8 +7,6 @@ class GetCachedWeatherUseCase @Inject constructor(
     private val repository: WeatherRepository
 ){
 
-    suspend operator fun invoke(){
-
-    }
+    suspend operator fun invoke() = repository.getCachedWeather()
 
 }

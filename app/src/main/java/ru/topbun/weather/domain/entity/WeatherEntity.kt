@@ -8,4 +8,5 @@ data class WeatherEntity(
     val cloudPercent: Int,
     val sunrise:Long,
     val sunset:Long,
+    val dataRequestTime : Long
 )

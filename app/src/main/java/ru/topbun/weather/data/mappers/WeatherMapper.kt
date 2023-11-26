@@ -6,6 +6,7 @@ import ru.topbun.weather.domain.entity.InfoWeather
 import ru.topbun.weather.domain.entity.Temperature
 import ru.topbun.weather.domain.entity.WeatherEntity
 import ru.topbun.weather.domain.entity.Wind
+import ru.topbun.weather.utils.secToMillis
 import ru.topbun.weather.utils.toCelsius
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ class WeatherMapper @Inject constructor() {
     fun mapResponseToDbEntity(response: WeatherResponse) =
         WeatherDbEntity(
             name = response.name,
-            timeUpdate = response.timeStamp,
+            timeUpdate = response.timeStamp.secToMillis(),
             titleWeather = response.weather.first().description,
             weatherCode = response.weather.first().id,
             icon = response.weather.first().icon,
@@ -28,8 +29,8 @@ class WeatherMapper @Inject constructor() {
             speedWind = response.wind.speed,
             deg = response.wind.deg,
             cloudPercent = response.clouds.all,
-            sunrise = response.sys.sunrise.toLong(),
-            sunset = response.sys.sunset.toLong()
+            sunrise = response.sys.sunrise.toLong().secToMillis(),
+            sunset = response.sys.sunset.toLong().secToMillis()
         )
 
     fun mapDbEntityToEntity(dbEntity: WeatherDbEntity) =
@@ -56,7 +57,8 @@ class WeatherMapper @Inject constructor() {
             ),
             cloudPercent = dbEntity.cloudPercent,
             sunrise = dbEntity.sunrise,
-            sunset = dbEntity.sunset
+            sunset = dbEntity.sunset,
+            dataRequestTime = dbEntity.dataRequestTime
         )
 
 }

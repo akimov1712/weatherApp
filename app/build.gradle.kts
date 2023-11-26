@@ -48,12 +48,14 @@ android {
 
 dependencies {
 
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     val roomVersion = "2.6.0"
     val hilt = "2.48.1"
     val navVersion = "2.7.5"
     val retrofitVersion = "2.9.0"
+
+//    View
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("com.mikhaellopez:circularprogressbar:3.1.0")
 
 //    Hilt
     implementation ("com.google.dagger:hilt-android:$hilt")
@@ -78,7 +80,9 @@ dependencies {
 
 //    ViewModel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
+//    Default
     implementation ("androidx.core:core-ktx:1.12.0")
     implementation ("androidx.appcompat:appcompat:1.6.1")
     implementation ("com.google.android.material:material:1.10.0")
@@ -86,5 +90,6 @@ dependencies {
     testImplementation ("junit:junit:4.13.2")
     androidTestImplementation ("androidx.test.ext:junit:1.1.5")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
 }

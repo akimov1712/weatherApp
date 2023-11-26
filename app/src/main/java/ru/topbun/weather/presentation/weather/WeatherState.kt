@@ -11,5 +11,6 @@ sealed class WeatherState {
     data object ConnectError: WeatherState()
     data object ClientError: WeatherState()
     data object ServerError: WeatherState()
+    data object CachedDataError: WeatherState()
 
 }
