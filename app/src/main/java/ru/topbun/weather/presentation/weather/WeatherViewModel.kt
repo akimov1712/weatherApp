@@ -29,15 +29,15 @@ class WeatherViewModel @Inject constructor(
     fun getWeatherCity(city: String) {
         viewModelScope.launch {
             try {
-                Log.d("sis", "Успешно")
                 _state.value = WeatherState.Loading
                 getWeatherCityUseCase(city).collect {
                     _state.emit(WeatherState.WeatherItem(it))
                 }
+                Log.d("sis", "Успешно")
             } catch (e: ConnectException) {
-                Log.d("sis", "Ошибка в подключении")
                 _state.emit(WeatherState.ConnectError)
                 getCachedWeather()
+                Log.d("sis", "Ошибка в подключении")
             } catch (e: BackendException) {
                 _state.emit(WeatherState.BackendError("${e.code}: ${e.message}"))
             } catch (e: ParseBackendResponseException) {
@@ -52,18 +52,20 @@ class WeatherViewModel @Inject constructor(
         Log.d("sis", "Получение кешированных данных")
         viewModelScope.launch {
             try {
+                Log.d("sis", "Закешированные данные получены")
                 _state.value = WeatherState.Loading
                 getCachedWeatherUseCase().collect {
                     _state.emit(WeatherState.WeatherItem(it))
                 }
             } catch (e: CachedDataException) {
+                Log.d("sis", "Кешированные данные не найдены")
                 _state.emit(WeatherState.CachedDataError)
             }
         }
     }
 
     init {
-        getWeatherCity("Moscow")
+        getWeatherCity("Moscoавпw")
     }
 
 }

@@ -35,7 +35,7 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
                     viewModel.state.collect {
                         when (it) {
                             is WeatherState.WeatherItem -> {
-                                progressBar.visibility = View.GONE
+                                pBarLoader.visibility = View.GONE
                                 clError.visibility = View.GONE
                                 clContent.visibility = View.VISIBLE
                                 swipeRefresh.isRefreshing = false
@@ -44,7 +44,7 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
                             }
 
                             is WeatherState.Loading -> {
-                                progressBar.visibility = View.VISIBLE
+                                pBarLoader.visibility = View.VISIBLE
                                 clContent.visibility = View.GONE
                                 clError.visibility = View.GONE
                                 swipeRefresh.isEnabled = false
@@ -68,7 +68,7 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
 
                             is WeatherState.CachedDataError -> {
                                 onStateError()
-                                tvError.text = "Ошибка\nПроверьте инетернет подключение"
+                                tvError.text = "Ошибка\nПроверьте интернет подключение"
                             }
                         }
                     }
@@ -96,9 +96,10 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
 
     private fun onStateError(){
         with(binding){
-            progressBar.visibility = View.GONE
+            pBarLoader.visibility = View.GONE
             clContent.visibility = View.GONE
             clError.visibility = View.VISIBLE
+            swipeRefresh.isEnabled = true
             tvCity.text = "Ошибка"
         }
     }
@@ -146,9 +147,9 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
             val progress = (timeNowInDay / timeSunsetInDay) * 100
             if (progress >= 100){
                 viewEndPoint.setBackgroundResource(R.drawable.background_oval_active)
-                circularProgressBar.progress = 100f
+                pBarSunrise.progress = 100f
             } else {
-                circularProgressBar.progress = progress
+                pBarSunrise.progress = progress
             }
         }
 
