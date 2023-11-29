@@ -1,17 +1,12 @@
 package ru.topbun.weather.data.repositories
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import retrofit2.HttpException
 import retrofit2.Response
 import ru.topbun.weather.data.CachedDataException
-import ru.topbun.weather.data.ClientErrorException
-import ru.topbun.weather.data.ConnectException
-import ru.topbun.weather.data.ServerErrorException
 import ru.topbun.weather.data.mappers.WeatherMapper
 import ru.topbun.weather.data.sources.localSource.database.WeatherDao
+import ru.topbun.weather.data.sources.networkSource.BaseRetrofitSource
 import ru.topbun.weather.data.sources.networkSource.WeatherApiService
 import ru.topbun.weather.data.sources.networkSource.entity.WeatherResponse
 import ru.topbun.weather.domain.entity.WeatherEntity
@@ -22,7 +17,7 @@ class WeatherRepositoryImpl @Inject constructor(
     private val weatherDao: WeatherDao,
     private val weatherApi: WeatherApiService,
     private val weatherMapper: WeatherMapper
-) : WeatherRepository {
+) : WeatherRepository, BaseRetrofitSource() {
 
     override suspend fun getCachedWeather(): Flow<WeatherEntity> {
         return weatherDao.getWeather().map {
@@ -31,44 +26,33 @@ class WeatherRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getWeatherCity(city: String): Flow<WeatherEntity> {
-        try {
+    override suspend fun getWeatherCity(city: String): Flow<WeatherEntity> =
+        wrapRetrofitExceptions {
             val weatherResponse = weatherApi.getWeather(city)
-            return returnDataFlow(weatherResponse)
-        } catch (e: Exception) {
-            throw ConnectException()
+            returnDataFlow(weatherResponse)
         }
-    }
+
 
     private suspend fun returnDataFlow(weatherResponse: Response<WeatherResponse>): Flow<WeatherEntity> {
-        return if (processData(weatherResponse)) weatherDao.getWeather().map {
+        processData(weatherResponse)
+        return weatherDao.getWeather().map {
             weatherMapper.mapDbEntityToEntity(it)
         }
-        else flow { }
     }
 
-    private suspend fun processData(weatherResponse: Response<WeatherResponse>): Boolean {
-        when (weatherResponse.code()) {
-            in 200..299 -> {
-                weatherResponse.body()?.let {
-                    weatherDao.insertWeather(
-                        weatherMapper.mapResponseToDbEntity(it)
-                    )
-                }
+    private suspend fun processData(weatherResponse: Response<WeatherResponse>) {
+        if (weatherResponse.isSuccessful) {
+            weatherResponse.body()?.let {
+                weatherDao.insertWeather(
+                    weatherMapper.mapResponseToDbEntity(it)
+                )
             }
-
-            in 400..499 -> throw ClientErrorException()
-            in 500..599 -> throw ServerErrorException()
         }
-        return true
     }
 
-    override suspend fun getWeatherCoords(lon: Float, lat: Float): Flow<WeatherEntity> {
-        try {
+    override suspend fun getWeatherCoords(lon: Float, lat: Float): Flow<WeatherEntity> =
+        wrapRetrofitExceptions {
             val weatherResponse = weatherApi.getWeather(lon, lat)
-            return returnDataFlow(weatherResponse)
-        } catch (e: HttpException) {
-            throw ConnectException()
+            returnDataFlow(weatherResponse)
         }
-    }
 }

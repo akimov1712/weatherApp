@@ -26,7 +26,8 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
-            android:layout_height="400dp"
+            android:layout_height="wrap_content"
+            android:minHeight="350dp"
             android:layout_marginTop="20dp"
             android:layout_marginHorizontal="20dp"
             app:cardCornerRadius="20dp"
@@ -84,6 +85,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_content"
+                android:paddingBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -91,22 +93,22 @@
                     android:id="@+id/tv_update_data"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_semibold"
-                    tools:text="Sun, 25 Nov, 21:07"
-                    android:textColor="#558AB1"
                     android:layout_margin="20dp"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:textColor="#558AB1"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Sun, 25 Nov, 21:07" />
 
                 <TextView
                     android:id="@+id/tv_temp_now"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/nunito_semibold"
                     android:textColor="@color/white"
                     android:textSize="48dp"
-                    android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_update_data"
                     app:layout_constraintStart_toStartOf="@+id/tv_update_data"
                     app:layout_constraintTop_toBottomOf="@+id/tv_update_data"
@@ -130,11 +132,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_regular"
+                    android:text="Ощущается "
                     android:textColor="#E6FFFFFF"
                     android:textSize="16dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_title_weather"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_weather"
-                    android:text="Ощущается " />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_weather" />
 
                 <TextView
                     android:id="@+id/tv_feels_temp"
@@ -163,24 +165,23 @@
                     android:id="@+id/circularProgressBar"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
-                    android:layout_marginTop="10dp"
                     android:rotation="-90"
+                    android:translationZ="5dp"
+                    app:cpb_background_progressbar_color="#00FFFFFF"
                     app:cpb_progress="0"
                     app:cpb_progress_max="200"
-                    android:translationZ="5dp"
-                    app:cpb_round_border="true"
-                    app:cpb_progressbar_width="3dp"
                     app:cpb_progressbar_color="#DFF6FC"
-                    app:cpb_background_progressbar_color="#00FFFFFF"
+                    app:cpb_progressbar_width="3dp"
+                    app:cpb_round_border="true"
                     app:layout_constraintEnd_toEndOf="@+id/iv_weather"
                     app:layout_constraintStart_toStartOf="@+id/textView"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_feels_temp" />
+                    app:layout_constraintTop_toTopOf="@+id/view" />
 
                 <View
                     android:id="@+id/view"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/background_progress_disactive"
                     app:layout_constraintEnd_toEndOf="@+id/iv_weather"
                     app:layout_constraintStart_toStartOf="@+id/textView"
@@ -232,6 +233,7 @@
                     tools:text="13h 40m" />
 
                 <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_semibold"
@@ -246,11 +248,11 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:fontFamily="@font/nunito_semibold"
                     android:text="Восход"
                     android:textColor="#558AB1"
                     android:textSize="12dp"
-                    android:layout_marginBottom="5dp"
                     app:layout_constraintBottom_toTopOf="@+id/tv_sunrise"
                     app:layout_constraintEnd_toEndOf="@+id/tv_sunrise"
                     app:layout_constraintStart_toStartOf="@+id/tv_sunrise" />
@@ -270,11 +272,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:fontFamily="@font/nunito_semibold"
                     android:text="Закат"
                     android:textColor="#558AB1"
                     android:textSize="12dp"
-                    android:layout_marginBottom="5dp"
                     app:layout_constraintBottom_toTopOf="@+id/tv_sunset"
                     app:layout_constraintEnd_toEndOf="@+id/tv_sunset"
                     app:layout_constraintStart_toStartOf="@+id/tv_sunset" />
@@ -290,6 +292,102 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/view_endPoint"
                     tools:text="21:52" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:text="Давление"
+                    android:textColor="#558AB1"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toEndOf="@+id/view_endPoint"
+                    app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_daylight" />
+
+                <TextView
+                    android:id="@+id/tv_pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/nunito_bold"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView4"
+                    app:layout_constraintStart_toStartOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4"
+                    tools:text="762 мм.р.с" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:text="Влажность"
+                    android:textColor="#558AB1"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_sunset"
+                    app:layout_constraintStart_toStartOf="@+id/tv_sunset"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_daylight" />
+
+                <TextView
+                    android:id="@+id/tv_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/nunito_bold"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView5"
+                    app:layout_constraintStart_toStartOf="@+id/textView5"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5"
+                    tools:text="83%" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:text="t° Max, Min"
+                    android:textColor="#558AB1"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_sunrise"
+                    app:layout_constraintStart_toStartOf="@+id/tv_sunrise"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_daylight" />
+
+                <TextView
+                    android:id="@+id/tv_temp_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/icon_temp_max"
+                    android:fontFamily="@font/nunito_bold"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_temp_min"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="@+id/textView6"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    tools:text="15°" />
+
+                <TextView
+                    android:id="@+id/tv_temp_min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/icon_temp_min"
+                    android:fontFamily="@font/nunito_bold"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView6"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tv_temp_max"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    tools:text="15°" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,8 +9,8 @@ sealed class WeatherState {
     data object Loading: WeatherState()
 
     data object ConnectError: WeatherState()
-    data object ClientError: WeatherState()
-    data object ServerError: WeatherState()
+    data object ParseBackendResponseError: WeatherState()
+    data class BackendError(val message: String) : WeatherState()
     data object CachedDataError: WeatherState()
 
 }

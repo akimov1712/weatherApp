@@ -1,11 +1,7 @@
 package ru.topbun.weather.presentation.weather
 
-import android.content.res.ColorStateList
-import android.util.Half.toFloat
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +17,6 @@ import ru.topbun.weather.utils.convertTimeStampToCountTime
 import ru.topbun.weather.utils.convertTimeStampToDate
 import ru.topbun.weather.utils.convertTimeStampToLocalDateTime
 import ru.topbun.weather.utils.convertTimeStampToTime
-import java.util.Date
 
 @AndroidEntryPoint
 class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBinding::inflate) {
@@ -44,6 +39,7 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
                                 clError.visibility = View.GONE
                                 clContent.visibility = View.VISIBLE
                                 swipeRefresh.isRefreshing = false
+                                swipeRefresh.isEnabled = true
                                 setDataInView(it.weather)
                             }
 
@@ -51,21 +47,23 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
                                 progressBar.visibility = View.VISIBLE
                                 clContent.visibility = View.GONE
                                 clError.visibility = View.GONE
+                                swipeRefresh.isEnabled = false
                                 tvCity.text = "Загрузка"
                             }
 
-                            is WeatherState.ClientError -> {
+                            is WeatherState.ParseBackendResponseError -> {
                                 onStateError()
-                                tvError.text = "Данные не найдены"
+                                tvError.text = "Ошибка. Данные не были обработаны. Попробуйте снова"
                             }
 
                             is WeatherState.ConnectError -> {
                                 Toast.makeText(requireContext(), "Нет подключения к интернету", Toast.LENGTH_SHORT).show()
                             }
 
-                            is WeatherState.ServerError -> {
+                            is WeatherState.BackendError -> {
                                 onStateError()
-                                tvError.text = "Сервер не отвечает\nПопробуйте через некоторое время"
+                                tvError.text = "Ошибка в получении данных"
+                                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                             }
 
                             is WeatherState.CachedDataError -> {
@@ -107,28 +105,52 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
 
     private fun setDataInView(weather: WeatherEntity) {
         with(binding){
-            tvCity.text = weather.infoWeather.name
-            tvUpdateData.text = convertTimeStampToDate(weather.dataRequestTime)
-
-            tvTempNow.text = "${weather.temperature.temp}°С"
-            tvTitleWeather.text = weather.infoWeather.titleWeather.capitalize()
-            tvFeelsTemp.text = weather.temperature.feelsTemp.toString() + "°С"
-
-            tvSunrise.text = convertTimeStampToTime(weather.sunrise)
-            tvSunset.text = convertTimeStampToTime(weather.sunset)
-
-            val timeNowInDay = convertTimeStampToLocalDateTime(System.currentTimeMillis())
-            val timeSunsetInDay = convertTimeStampToLocalDateTime(weather.sunset)
-
-            tvDaylight.text = convertTimeStampToCountTime((timeSunsetInDay - timeNowInDay).toLong())
-            val progress = (timeNowInDay / timeSunsetInDay) * 100
-            if (progress >= 100) viewEndPoint.setBackgroundResource(R.drawable.background_oval_active)
-            circularProgressBar.progress = progress
+            setMainInfoWeather(weather)
+            setProgressWeather(weather)
+            setOtherInfoWeather(weather)
             mapIcon[weather.infoWeather.icon]?.let { drawable ->
                 ivWeather.setImageResource(
                     drawable
                 )
             }
         }
+    }
+
+    private fun setOtherInfoWeather(weather: WeatherEntity) {
+        with(binding) {
+            tvTempMax.text = weather.temperature.tempMax.toString() + "°"
+            tvTempMin.text = weather.temperature.tempMin.toString() + "°"
+            tvHumidity.text = weather.temperature.humidity.toString() + "%"
+            tvPressure.text = weather.temperature.pressure.toString() + " мм.р.с."
+        }
+    }
+
+    private fun setMainInfoWeather(weather: WeatherEntity) {
+        with(binding) {
+            tvCity.text = weather.infoWeather.name
+            tvUpdateData.text = convertTimeStampToDate(weather.dataRequestTime)
+            tvTempNow.text = "${weather.temperature.temp}°С"
+            tvTitleWeather.text = weather.infoWeather.titleWeather.capitalize()
+            tvFeelsTemp.text = weather.temperature.feelsTemp.toString() + "°С"
+        }
+    }
+
+    private fun setProgressWeather(weather: WeatherEntity) {
+        with(binding){
+            tvSunrise.text = convertTimeStampToTime(weather.sunrise)
+            tvSunset.text = convertTimeStampToTime(weather.sunset)
+            val timeNowInDay = convertTimeStampToLocalDateTime(System.currentTimeMillis())
+            val timeSunsetInDay = convertTimeStampToLocalDateTime(weather.sunset)
+            tvDaylight.text =
+                convertTimeStampToCountTime(timeSunsetInDay.toLong() - timeNowInDay.toLong())
+            val progress = (timeNowInDay / timeSunsetInDay) * 100
+            if (progress >= 100){
+                viewEndPoint.setBackgroundResource(R.drawable.background_oval_active)
+                circularProgressBar.progress = 100f
+            } else {
+                circularProgressBar.progress = progress
+            }
+        }
+
     }
 }

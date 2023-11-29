@@ -17,10 +17,11 @@ fun convertTimeStampToTime(timestamp: Long): String {
 }
 
 fun convertTimeStampToCountTime(timestamp: Long): String {
-    val date = Date(timestamp)
-    val sdfHours = SimpleDateFormat("hh", Locale.getDefault()).format(date) + " ч "
-    val sdfMin = SimpleDateFormat("mm", Locale.getDefault()).format(date) + " мин "
-    return sdfHours + sdfMin
+    if (timestamp <= 0) return "0 ч 0 мин"
+    val totalMinutes = timestamp / (1000 * 60)
+    val hours = totalMinutes / 60
+    val minutes = totalMinutes % 60
+    return "$hours ч $minutes мин"
 }
 
 fun convertTimeStampToLocalDateTime(timestamp: Long) = (timestamp % 86_400_000).toFloat()
