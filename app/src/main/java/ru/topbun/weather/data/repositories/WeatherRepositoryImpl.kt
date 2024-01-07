@@ -21,9 +21,7 @@ class WeatherRepositoryImpl @Inject constructor(
 
     override suspend fun getCachedWeather(): Flow<WeatherEntity> {
         return weatherDao.getWeather().map {
-            if (it == null) {
-               throw CachedDataException()
-            }
+            it ?: throw CachedDataException()
             weatherMapper.mapDbEntityToEntity(it)
         }
     }
